@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holy Trinity Bulletin — Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#173a6b;
+    --navy-deep:#0f2749;
+    --gold:#b8912e;
+    --gold-soft:#c9a94a;
+    --ink:#22262c;
+    --paper:#ffffff;
+    --app-bg:#e9e6df;
+    --line:#d9d2c4;
+    --tint-blue:#eef3fa;
+    --tint-green:#eef6ee;
+    --tint-red:#fbeeee;
+    --tint-gold:#faf4e4;
+    --serif-display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+    --serif-body:"EB Garamond", Georgia, "Times New Roman", serif;
+    --text-scale:1;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--app-bg);
+    font-family:var(--serif-body);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- App toolbar ---------- */
+  .app-toolbar{
+    position:sticky;top:0;z-index:50;
+    background:var(--navy-deep);
+    color:#fff;
+    display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+    padding:10px 16px;
+    box-shadow:0 2px 10px rgba(0,0,0,.18);
+  }
+  .app-toolbar .brand{
+    font-family:var(--serif-display);
+    font-weight:600;font-size:18px;letter-spacing:.3px;
+    margin-right:auto;display:flex;align-items:center;gap:8px;
+  }
+  .app-toolbar .brand svg{width:22px;height:22px;}
+  .btn{
+    font-family:var(--serif-body);
+    font-size:14px;font-weight:600;
+    border:1px solid rgba(255,255,255,.28);
+    background:rgba(255,255,255,.08);
+    color:#fff;
+    padding:7px 13px;border-radius:7px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:6px;
+    transition:background .15s,border-color .15s,transform .05s;
+    white-space:nowrap;
+  }
+  .btn:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.5);}
+  .btn:active{transform:translateY(1px);}
+  .btn:focus-visible{outline:2px solid var(--gold-soft);outline-offset:2px;}
+  .btn.primary{background:var(--gold);border-color:var(--gold-soft);color:#241a02;}
+  .btn.primary:hover{background:var(--gold-soft);}
+  .btn svg{width:15px;height:15px;}
+  .status{font-size:12px;opacity:.75;margin-left:4px;min-width:60px;}
+  .ts-group{display:inline-flex;align-items:center;gap:4px;
+    padding:2px 4px;border:1px solid rgba(255,255,255,.22);border-radius:8px;background:rgba(255,255,255,.05);}
+  .ts-btn{min-width:36px;padding:6px 8px;font-weight:700;}
+  .ts-val{font-size:12px;opacity:.85;min-width:40px;text-align:center;}
+
+  /* ---------- Format bar ---------- */
+  .format-bar{
+    position:sticky;top:52px;z-index:40;
+    background:#f6f2ea;border-bottom:1px solid var(--line);
+    display:flex;flex-wrap:wrap;align-items:center;gap:4px;
+    padding:6px 16px;
+  }
+  .format-bar .fb-label{font-size:12px;color:#7a715c;margin-right:6px;}
+  .fbtn{
+    font-family:var(--serif-body);font-size:14px;
+    min-width:32px;height:30px;padding:0 8px;
+    border:1px solid var(--line);background:#fff;color:var(--ink);
+    border-radius:6px;cursor:pointer;
+  }
+  .fbtn:hover{background:#efe9dc;}
+  .fbtn b{font-weight:700;} .fbtn i{font-style:italic;} .fbtn u{text-decoration:underline;}
+  .fsel{font-family:var(--serif-body);font-size:14px;height:30px;
+    border:1px solid var(--line);background:#fff;color:var(--ink);
+    border-radius:6px;padding:0 6px;cursor:pointer;}
+  .fb-sep{width:1px;height:22px;background:var(--line);margin:0 4px;}
+
+  /* ---------- Page ---------- */
+  .page-wrap{
+    padding:26px 16px 60px;
+    display:flex;flex-direction:column;align-items:center;
+    overflow-x:auto;
+  }
+  .page{
+    background:var(--paper);
+    width:8.5in;
+    min-height:11in;
+    padding:0.5in;
+    box-shadow:0 6px 30px rgba(0,0,0,.15);
+    border-radius:2px;
+  }
+
+  /* ---------- Masthead (constant) ---------- */
+  .masthead{
+    border-bottom:3px double var(--gold);
+    padding-bottom:12px;margin-bottom:14px;
+    display:flex;align-items:center;gap:16px;
+  }
+  .masthead .logo{flex:0 0 auto;width:74px;height:74px;}
+  .masthead .titles{flex:1;text-align:center;}
+  .masthead h1{
+    font-family:var(--serif-display);
+    font-weight:700;color:var(--navy);
+    font-size:34px;line-height:1.05;margin:0;letter-spacing:.5px;
+  }
+  .masthead .contact{
+    font-size:13px;color:#4a4a4a;margin-top:5px;line-height:1.5;
+  }
+  .masthead .contact strong{color:var(--navy);}
+  .masthead .spacer{width:74px;flex:0 0 auto;} /* balances the logo so title stays centered */
+
+  /* ---------- Title / occasion band ---------- */
+  .occasion-band{
+    border:1.5px solid var(--navy);
+    border-radius:8px;
+    text-align:center;
+    padding:9px 14px;margin-bottom:16px;
+    background:var(--tint-gold);
+  }
+  .occasion-band .occasion{
+    font-family:var(--serif-display);font-weight:700;
+    font-size:calc(22px * var(--text-scale));color:var(--navy);line-height:1.15;
+  }
+  .occasion-band .issue{font-size:calc(15px * var(--text-scale));color:#55524b;margin-top:2px;}
+
+  /* ---------- Content grid ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    align-items:start;
+  }
+  .card{
+    position:relative;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:13px 15px;
+    background:#fff;
+    break-inside:avoid;
+  }
+  .card[data-span="full"]{grid-column:1 / -1;}
+  .card[data-tint="blue"]{background:var(--tint-blue);border-color:#cfdcee;}
+  .card[data-tint="green"]{background:var(--tint-green);border-color:#cfe2cf;}
+  .card[data-tint="red"]{background:var(--tint-red);border-color:#eccccc;}
+  .card[data-tint="gold"]{background:var(--tint-gold);border-color:#e7d9ad;}
+
+  .card-body{outline:none;}
+  .card-body:focus{outline:none;}
+  .card-body h3{
+    font-family:var(--serif-display);font-weight:700;
+    color:var(--navy);font-size:calc(19px * var(--text-scale));margin:0 0 7px;
+    border-bottom:2px solid var(--gold);padding-bottom:4px;display:inline-block;
+  }
+  .card-body h4{
+    font-family:var(--serif-display);font-weight:700;
+    color:var(--navy-deep);font-size:calc(16px * var(--text-scale));margin:9px 0 3px;
+  }
+  .card-body p{margin:0 0 7px;font-size:calc(15px * var(--text-scale));line-height:1.5;}
+  .card-body ul{margin:4px 0 8px;padding-left:20px;font-size:calc(15px * var(--text-scale));line-height:1.5;}
+  .card-body table{width:100%;border-collapse:collapse;font-size:calc(15px * var(--text-scale));}
+  .card-body td{padding:2px 6px;}
+  .card-body em{color:#6b6252;}
+
+  /* editing affordance */
+  body.editing [contenteditable="true"]{
+    border-radius:5px;
+    transition:box-shadow .12s,background .12s;
+  }
+  body.editing [contenteditable="true"]:hover{background:rgba(184,145,46,.06);}
+  body.editing [contenteditable="true"]:focus{
+    box-shadow:0 0 0 2px var(--gold-soft);background:#fffdf6;
+  }
+
+  /* ---------- Image card ---------- */
+  .img-drop{
+    display:flex;align-items:center;justify-content:center;
+    width:100%;min-height:150px;
+    border-radius:6px;overflow:hidden;cursor:pointer;position:relative;
+    background:#f3efe6;
+  }
+  body.editing .img-drop{border:2px dashed #c8bda0;}
+  .img-drop img{width:100%;height:auto;display:block;}
+  .img-hint{
+    color:#8a8168;font-size:14px;text-align:center;padding:20px;
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+  }
+  .img-hint svg{width:26px;height:26px;opacity:.6;}
+  .img-drop.has-image .img-hint{display:none;}
+  .img-caption{
+    font-size:calc(13px * var(--text-scale));color:#6b6252;text-align:center;margin-top:6px;
+    font-style:italic;outline:none;
+  }
+
+  /* ---------- Card controls ---------- */
+  .card-controls{
+    position:absolute;top:-11px;right:8px;
+    display:none;gap:3px;
+    background:var(--navy-deep);border-radius:6px;padding:3px;
+    box-shadow:0 2px 8px rgba(0,0,0,.2);z-index:5;
+  }
+  body.editing .card:hover .card-controls,
+  body.editing .card:focus-within .card-controls{display:flex;}
+  .cc-btn{
+    width:24px;height:24px;border:none;border-radius:4px;
+    background:transparent;color:#fff;cursor:pointer;
+    font-size:13px;display:flex;align-items:center;justify-content:center;
+  }
+  .cc-btn:hover{background:rgba(255,255,255,.18);}
+  .cc-btn.tint-dot{position:relative;}
+  .cc-btn svg{width:14px;height:14px;}
+  .tint-menu{
+    position:absolute;top:30px;right:0;
+    background:#fff;border:1px solid var(--line);border-radius:7px;
+    padding:6px;display:none;gap:5px;box-shadow:0 4px 14px rgba(0,0,0,.15);
+  }
+  .tint-menu.open{display:flex;}
+  .swatch{width:20px;height:20px;border-radius:50%;cursor:pointer;border:1.5px solid rgba(0,0,0,.1);}
+  .swatch[data-t="white"]{background:#fff;}
+  .swatch[data-t="blue"]{background:#cfdcee;}
+  .swatch[data-t="green"]{background:#cfe2cf;}
+  .swatch[data-t="red"]{background:#eccccc;}
+  .swatch[data-t="gold"]{background:#e7d9ad;}
+
+  /* ---------- Add bar ---------- */
+  .add-bar{
+    grid-column:1 / -1;
+    display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+    padding:14px;margin-top:2px;
+    border:1.5px dashed var(--line);border-radius:8px;background:#faf8f3;
+  }
+  .add-btn{
+    font-family:var(--serif-body);font-size:14px;font-weight:600;
+    border:1px solid var(--line);background:#fff;color:var(--navy);
+    padding:8px 14px;border-radius:7px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .add-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+  .add-btn svg{width:15px;height:15px;}
+
+  /* page break marker */
+  .page-break{
+    grid-column:1 / -1;height:0;
+  }
+  .page-break-label{
+    grid-column:1 / -1;
+    text-align:center;font-size:12px;color:#a89b7d;
+    border-top:1.5px dashed #cbbf9f;padding-top:6px;margin-top:2px;
+    position:relative;
+  }
+  .page-break-label button{
+    border:none;background:#f0e9d8;color:#8a7c56;border-radius:5px;
+    cursor:pointer;font-size:12px;padding:1px 7px;margin-left:6px;
+  }
+
+  /* ---------- Preview mode ---------- */
+  body.preview .card-controls,
+  body.preview .add-bar,
+  body.preview .page-break-label{display:none !important;}
+  body.preview .img-drop{border:none;background:transparent;min-height:0;}
+  body.preview .img-drop:not(.has-image){display:none;}
+  body.preview [contenteditable]{outline:none;}
+  body.preview.editing [contenteditable]:hover{background:transparent;}
+
+  /* ---------- Print ---------- */
+  @media print{
+    @page{size:letter;margin:0.4in;}
+    body{background:#fff;}
+    .app-toolbar,.format-bar,.card-controls,.add-bar,.page-break-label,.tint-menu{display:none !important;}
+    .page-wrap{padding:0;overflow:visible;}
+    .page{width:auto;min-height:0;box-shadow:none;border-radius:0;padding:0;margin:0;}
+    .img-drop{border:none !important;background:transparent;min-height:0;}
+    .img-drop:not(.has-image){display:none;}
+    .card{break-inside:avoid;}
+    .page-break{break-before:page;}
+    [contenteditable]{outline:none !important;box-shadow:none !important;background:transparent !important;}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
+
+  @media (max-width:600px){
+    .grid{grid-template-columns:1fr;}
+    .card[data-span="full"]{grid-column:auto;}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+</style>
+</head>
+<body class="editing">
+
+<!-- ============ APP TOOLBAR ============ -->
+<div class="app-toolbar no-print">
+  <span class="brand">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#c9a94a" stroke-width="5"><circle cx="50" cy="35" r="19"/><circle cx="36" cy="59" r="19"/><circle cx="64" cy="59" r="19"/></g></svg>
+    Bulletin Builder
+  </span>
+  <div class="ts-group" role="group" aria-label="Text size">
+    <button class="btn ts-btn" id="tsDown" title="Smaller text" aria-label="Decrease text size">A−</button>
+    <span class="ts-val" id="tsVal">100%</span>
+    <button class="btn ts-btn" id="tsUp" title="Larger text" aria-label="Increase text size">A+</button>
+  </div>
+  <button class="btn" id="previewBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg><span>Preview</span></button>
+  <button class="btn" id="saveBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>Save draft</button>
+  <button class="btn" id="resetBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Reset</button>
+  <button class="btn primary" id="printBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>Print / Preview print</button>
+  <span class="status" id="status"></span>
+</div>
+
+<!-- ============ FORMAT BAR ============ -->
+<div class="format-bar no-print" id="formatBar">
+  <span class="fb-label">Format:</span>
+  <select class="fsel" id="fontSelect" title="Font for selected text">
+    <option value="" selected>Font…</option>
+    <option value="EB Garamond">Garamond</option>
+    <option value="Cormorant Garamond">Cormorant</option>
+    <option value="Lato">Lato (sans)</option>
+    <option value="Georgia">Georgia</option>
+    <option value="Times New Roman">Times</option>
+    <option value="Arial">Arial</option>
+    <option value="Trebuchet MS">Trebuchet</option>
+  </select>
+  <span class="fb-sep"></span>
+  <button class="fbtn" data-cmd="bold" title="Bold"><b>B</b></button>
+  <button class="fbtn" data-cmd="italic" title="Italic"><i>I</i></button>
+  <button class="fbtn" data-cmd="underline" title="Underline"><u>U</u></button>
+  <span class="fb-sep"></span>
+  <button class="fbtn" data-block="h3" title="Section heading">Heading</button>
+  <button class="fbtn" data-block="h4" title="Sub-heading">Sub</button>
+  <button class="fbtn" data-block="p" title="Normal text">Text</button>
+  <span class="fb-sep"></span>
+  <button class="fbtn" data-cmd="insertUnorderedList" title="Bulleted list">• List</button>
+  <button class="fbtn" data-cmd="justifyCenter" title="Center">Center</button>
+  <button class="fbtn" data-cmd="justifyLeft" title="Left">Left</button>
+</div>
+
+<!-- ============ PAGE ============ -->
+<div class="page-wrap">
+  <div class="page" id="page">
+
+    <!-- Masthead: constant, not editable -->
+    <header class="masthead">
+      <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">
+        <g fill="none" stroke="#173a6b" stroke-width="5">
+          <circle cx="50" cy="35" r="19"/><circle cx="36" cy="59" r="19"/><circle cx="64" cy="59" r="19"/>
+        </g>
+        <circle cx="50" cy="50" r="6" fill="#b8912e"/>
+      </svg>
+      <div class="titles">
+        <h1>Holy Trinity Catholic Church</h1>
+        <div class="contact">
+          6234 Spartan Rd. Nanaimo, BC V9T 2N9 &nbsp;•&nbsp; Tel. 250.390.2612<br>
+          <strong>holytrinity@rcdvictoria.org</strong> &nbsp;•&nbsp; holytrinitynanaimo.com
+        </div>
+      </div>
+      <div class="spacer"></div>
+    </header>
+
+    <!-- Occasion / issue band: editable -->
+    <div class="occasion-band">
+      <div class="occasion" contenteditable="true">13th Sunday in Ordinary Time</div>
+      <div class="issue" contenteditable="true">Bulletin for June 28, 2026</div>
+    </div>
+
+    <!-- Content grid: editable cards -->
+    <div class="grid" id="grid">
+
+      <div class="card" data-span="half" data-tint="blue">
+        <div class="card-body" contenteditable="true">
+          <h3>Mass Schedule</h3>
+          <h4>Weekend</h4>
+          <p>Saturday — 9 am (Korean), 5 pm<br>Sunday — 9 am and 11 am</p>
+          <h4>Weekday</h4>
+          <p>Tue &amp; Thu — 6:30 pm<br>Wed &amp; Fri — 9 am</p>
+          <h4>Confessions</h4>
+          <p>Friday 9:30–10:30 am · Saturday 4–4:30 pm</p>
+        </div>
+      </div>
+
+      <div class="card" data-span="half" data-tint="red">
+        <div class="card-body" contenteditable="true">
+          <h3>Important Notices</h3>
+          <p><strong>Type this week's announcements here.</strong></p>
+          <p>The parish office will be closed from [date] to [date].</p>
+          <p>Mass intentions are booked until [month]. New intentions open at the end of the month.</p>
+          <p><em>Have a blessed week!</em></p>
+        </div>
+      </div>
+
+      <div class="card" data-span="full">
+        <div class="card-body" contenteditable="true">
+          <h3>A Word from Fr. Jose Thomas</h3>
+          <p>Dear Holy Trinity Parish Family,</p>
+          <p>Replace this text with the pastor's message for the week. Keep the greeting, the reflection, and a closing blessing. You can paste plain text here and it will keep the bulletin's style.</p>
+          <p>jthomas@rcdvictoria.org · God bless!</p>
+        </div>
+      </div>
+
+      <div class="card image-card" data-span="half">
+        <label class="img-drop">
+          <input type="file" accept="image/*" hidden>
+          <span class="img-hint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            Click to add an image
+          </span>
+        </label>
+        <div class="img-caption" contenteditable="true">Add a caption (optional)</div>
+      </div>
+
+      <div class="card" data-span="half" data-tint="green">
+        <div class="card-body" contenteditable="true">
+          <h3>Please Pray For</h3>
+          <p><strong>Those who are ill:</strong></p>
+          <p>Add names here, separated by commas.</p>
+        </div>
+      </div>
+
+      <div class="card" data-span="half" data-tint="gold">
+        <div class="card-body" contenteditable="true">
+          <h3>Collections</h3>
+          <table>
+            <tr><td>Envelopes</td><td style="text-align:right">$0.00</td></tr>
+            <tr><td>Cash</td><td style="text-align:right">$0.00</td></tr>
+            <tr><td><strong>Total</strong></td><td style="text-align:right"><strong>$0.00</strong></td></tr>
+          </table>
+          <p style="margin-top:8px"><em>We are grateful for these gifts.</em></p>
+        </div>
+      </div>
+
+      <!-- Add bar -->
+      <div class="add-bar no-print">
+        <button class="add-btn" data-add="text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>Add text box</button>
+        <button class="add-btn" data-add="image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Add image</button>
+        <button class="add-btn" data-add="break"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/></svg>Add page break</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const grid = document.getElementById('grid');
+  const addBar = grid.querySelector('.add-bar');
+  const statusEl = document.getElementById('status');
+  const STORAGE_KEY = 'ht-bulletin-draft-v1';
+
+  /* ---------- tiny status helper ---------- */
+  let statusTimer;
+  function say(msg){
+    statusEl.textContent = msg;
+    clearTimeout(statusTimer);
+    statusTimer = setTimeout(()=>statusEl.textContent='', 3500);
+  }
+
+  /* ---------- text size (global scale) ---------- */
+  const rootEl = document.documentElement;
+  const tsVal = document.getElementById('tsVal');
+  let textScale = 1;
+  function applyScale(){
+    rootEl.style.setProperty('--text-scale', textScale);
+    tsVal.textContent = Math.round(textScale*100) + '%';
+  }
+  function clampScale(v){ return Math.min(1.6, Math.max(0.8, Math.round(v*100)/100)); }
+  document.getElementById('tsUp').addEventListener('click', ()=>{ textScale = clampScale(textScale+0.1); applyScale(); });
+  document.getElementById('tsDown').addEventListener('click', ()=>{ textScale = clampScale(textScale-0.1); applyScale(); });
+  applyScale();
+
+  /* ---------- card markup builders ---------- */
+  const controlsHTML = `
+    <div class="card-controls no-print">
+      <button class="cc-btn" data-act="up" title="Move up">↑</button>
+      <button class="cc-btn" data-act="down" title="Move down">↓</button>
+      <button class="cc-btn" data-act="wide" title="Toggle full width">⤢</button>
+      <button class="cc-btn tint-dot" data-act="tint" title="Background colour">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>
+        <div class="tint-menu">
+          <span class="swatch" data-t="white"></span>
+          <span class="swatch" data-t="blue"></span>
+          <span class="swatch" data-t="green"></span>
+          <span class="swatch" data-t="red"></span>
+          <span class="swatch" data-t="gold"></span>
+        </div>
+      </button>
+      <button class="cc-btn" data-act="del" title="Delete">✕</button>
+    </div>`;
+
+  function makeTextCard(){
+    const c = document.createElement('div');
+    c.className='card'; c.dataset.span='half';
+    c.innerHTML = controlsHTML + `
+      <div class="card-body" contenteditable="true">
+        <h3>New Section</h3>
+        <p>Type your content here.</p>
+      </div>`;
+    return c;
+  }
+  function makeImageCard(){
+    const c = document.createElement('div');
+    c.className='card image-card'; c.dataset.span='half';
+    c.innerHTML = controlsHTML + `
+      <label class="img-drop">
+        <input type="file" accept="image/*" hidden>
+        <span class="img-hint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          Click to add an image
+        </span>
+      </label>
+      <div class="img-caption" contenteditable="true">Add a caption (optional)</div>`;
+    return c;
+  }
+  function makePageBreak(){
+    const wrap = document.createElement('div');
+    wrap.className='page-break-wrap'; wrap.style.display='contents';
+    const br = document.createElement('div'); br.className='page-break';
+    const label = document.createElement('div'); label.className='page-break-label no-print';
+    label.innerHTML = 'Page break <button data-act="del-break">remove</button>';
+    wrap.appendChild(br); wrap.appendChild(label);
+    return wrap;
+  }
+
+  /* ---------- give existing (seed) cards the same controls ---------- */
+  function ensureControls(){
+    grid.querySelectorAll('.card').forEach(card=>{
+      if(!card.querySelector('.card-controls')){
+        card.insertAdjacentHTML('afterbegin', controlsHTML);
+      }
+    });
+  }
+  ensureControls();
+
+  /* ---------- add buttons ---------- */
+  addBar.addEventListener('click', e=>{
+    const b = e.target.closest('[data-add]'); if(!b) return;
+    const type = b.dataset.add;
+    if(type==='text') grid.insertBefore(makeTextCard(), addBar);
+    else if(type==='image') grid.insertBefore(makeImageCard(), addBar);
+    else if(type==='break') grid.insertBefore(makePageBreak(), addBar);
+  });
+
+  /* ---------- card controls (delegated) ---------- */
+  grid.addEventListener('click', e=>{
+    // remove page break
+    if(e.target.matches('[data-act="del-break"]')){
+      e.target.closest('.page-break-wrap').remove(); return;
+    }
+    const btn = e.target.closest('.cc-btn'); 
+    const swatch = e.target.closest('.swatch');
+    if(swatch){
+      const card = swatch.closest('.card');
+      const t = swatch.dataset.t;
+      if(t==='white') card.removeAttribute('data-tint'); else card.dataset.tint=t;
+      card.querySelector('.tint-menu').classList.remove('open');
+      return;
+    }
+    if(!btn) return;
+    const card = btn.closest('.card');
+    const act = btn.dataset.act;
+    if(act==='del'){ card.remove(); }
+    else if(act==='wide'){ card.dataset.span = card.dataset.span==='full'?'half':'full'; }
+    else if(act==='up'){ const p=card.previousElementSibling; if(p && p.classList.contains('card')) grid.insertBefore(card,p); }
+    else if(act==='down'){ const n=card.nextElementSibling; if(n && n.classList.contains('card')) grid.insertBefore(n,card); }
+    else if(act==='tint'){ 
+      const menu=card.querySelector('.tint-menu'); 
+      document.querySelectorAll('.tint-menu.open').forEach(m=>{if(m!==menu)m.classList.remove('open');});
+      menu.classList.toggle('open'); 
+    }
+  });
+  document.addEventListener('click', e=>{
+    if(!e.target.closest('[data-act="tint"]'))
+      document.querySelectorAll('.tint-menu.open').forEach(m=>m.classList.remove('open'));
+  });
+
+  /* ---------- image upload (delegated) ---------- */
+  grid.addEventListener('change', e=>{
+    const input = e.target;
+    if(!input.matches('.img-drop input[type=file]')) return;
+    const file = input.files && input.files[0]; if(!file) return;
+    if(file.size > 8*1024*1024){ say('That image is very large — it may not save.'); }
+    const reader = new FileReader();
+    reader.onload = ev=>{
+      const drop = input.closest('.img-drop');
+      let img = drop.querySelector('img');
+      if(!img){ img = document.createElement('img'); drop.insertBefore(img, drop.firstChild); }
+      img.src = ev.target.result;
+      drop.classList.add('has-image');
+    };
+    reader.readAsDataURL(file);
+  });
+
+  /* ---------- format bar ---------- */
+  let lastEditable = null;
+  document.addEventListener('selectionchange', ()=>{
+    const a = document.activeElement;
+    if(a && a.isContentEditable) lastEditable = a;
+  });
+  document.getElementById('formatBar').addEventListener('mousedown', e=>{
+    // prevent losing selection when clicking a format button
+    if(e.target.closest('.fbtn')) e.preventDefault();
+  });
+  document.getElementById('formatBar').addEventListener('click', e=>{
+    const b = e.target.closest('.fbtn'); if(!b) return;
+    if(lastEditable) lastEditable.focus();
+    if(b.dataset.cmd){ document.execCommand(b.dataset.cmd,false,null); }
+    else if(b.dataset.block){ document.execCommand('formatBlock',false, b.dataset.block); }
+  });
+
+  /* ---------- font picker ---------- */
+  const fontSelect = document.getElementById('fontSelect');
+  let savedRange = null;
+  function saveSelection(){
+    const sel = window.getSelection();
+    if(sel && sel.rangeCount && lastEditable && lastEditable.contains(sel.anchorNode)){
+      savedRange = sel.getRangeAt(0).cloneRange();
+    }
+  }
+  function restoreSelection(){
+    if(savedRange){ const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(savedRange); }
+  }
+  fontSelect.addEventListener('mousedown', saveSelection);
+  fontSelect.addEventListener('change', ()=>{
+    const face = fontSelect.value;
+    if(face && lastEditable){
+      lastEditable.focus();
+      restoreSelection();
+      document.execCommand('styleWithCSS', false, true);
+      document.execCommand('fontName', false, face);
+    }
+    fontSelect.selectedIndex = 0; // reset back to "Font…"
+  });
+
+  /* ---------- preview toggle ---------- */
+  const previewBtn = document.getElementById('previewBtn');
+  previewBtn.addEventListener('click', ()=>{
+    const on = document.body.classList.toggle('preview');
+    document.body.classList.toggle('editing', !on);
+    previewBtn.querySelector('span').textContent = on ? 'Edit' : 'Preview';
+    say(on ? 'Preview — this is how it prints.' : 'Editing.');
+  });
+
+  /* ---------- print ---------- */
+  document.getElementById('printBtn').addEventListener('click', ()=>{
+    const wasPreview = document.body.classList.contains('preview');
+    document.body.classList.add('preview'); document.body.classList.remove('editing');
+    window.print();
+    if(!wasPreview){ document.body.classList.remove('preview'); document.body.classList.add('editing'); }
+  });
+
+  /* ---------- save / load draft (best effort) ---------- */
+  function collectHTML(){
+    // clone grid, strip control DOM so saved markup is clean
+    const clone = grid.cloneNode(true);
+    clone.querySelectorAll('.card-controls').forEach(n=>n.remove());
+    return {
+      occasion: document.querySelector('.occasion').innerHTML,
+      issue: document.querySelector('.issue').innerHTML,
+      scale: textScale,
+      grid: clone.innerHTML
+    };
+  }
+  document.getElementById('saveBtn').addEventListener('click', async ()=>{
+    if(!(window.storage && window.storage.set)){ say('Saving not available here — use Print to keep a copy.'); return; }
+    try{
+      const data = JSON.stringify(collectHTML());
+      const r = await window.storage.set(STORAGE_KEY, data);
+      say(r ? 'Draft saved.' : 'Could not save draft.');
+    }catch(err){ say('Draft too large to save (big images) — it still prints fine.'); }
+  });
+
+  async function loadDraft(){
+    if(!(window.storage && window.storage.get)) return;
+    try{
+      const r = await window.storage.get(STORAGE_KEY);
+      if(!r || !r.value) return;
+      const data = JSON.parse(r.value);
+      document.querySelector('.occasion').innerHTML = data.occasion;
+      document.querySelector('.issue').innerHTML = data.issue;
+      if(data.scale){ textScale = clampScale(data.scale); applyScale(); }
+      // rebuild grid: saved html lacks controls; re-inject for cards
+      const temp = document.createElement('div'); temp.innerHTML = data.grid;
+      // remove existing cards/breaks (keep add-bar)
+      grid.querySelectorAll('.card, .page-break-wrap').forEach(n=>n.remove());
+      Array.from(temp.children).forEach(node=>{
+        if(node.classList.contains('add-bar')) return;
+        if(node.classList.contains('card')){
+          node.insertAdjacentHTML('afterbegin', controlsHTML);
+          // restore has-image state
+          node.querySelectorAll('.img-drop').forEach(d=>{ if(d.querySelector('img')) d.classList.add('has-image'); });
+        }
+        grid.insertBefore(node, addBar);
+      });
+      say('Loaded your saved draft.');
+    }catch(err){/* ignore */}
+  }
+
+  document.getElementById('resetBtn').addEventListener('click', async ()=>{
+    if(!confirm('Reset the bulletin to the blank template? Your saved draft stays until you Save again.')) return;
+    location.reload();
+  });
+
+  loadDraft();
+})();
+</script>
+</body>
+</html>
